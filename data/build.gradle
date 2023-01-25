@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace 'com.matheussilas97.data_module'
+    namespace 'com.matheussilas97.data'
     compileSdk 32
 
     defaultConfig {

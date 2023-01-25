@@ -1,4 +1,4 @@
-package com.matheussilas97.data.service
+package com.matheussilas97.data
 
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient

@@ -13,7 +13,7 @@ interface AddressDao {
     fun getAll(): List<Address>
 
     @Insert
-    fun insert(address: Address): Long
+    fun insert(address: Address)
 
     @Delete
     fun deleteTraining(address: Address)

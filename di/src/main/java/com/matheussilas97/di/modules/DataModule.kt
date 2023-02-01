@@ -4,6 +4,8 @@ import androidx.room.Room
 import com.matheussilas97.data.Apifactory
 import com.matheussilas97.data.repository.AddressRepositoryImpl
 import com.matheussilas97.data_module.local.AppDatabase
+import com.matheussilas97.data_module.repository.AddressLocalRepositoryImpl
+import com.matheussilas97.domain.repository.AddressLocalRepository
 import com.matheussilas97.domain.repository.AddressRepository
 import org.koin.dsl.module
 
@@ -14,5 +16,7 @@ val dataModule = module {
     single { Apifactory }
 
     single<AddressRepository> { AddressRepositoryImpl(addressService = get()) }
+
+    single<AddressLocalRepository> { AddressLocalRepositoryImpl(appDatabase = get()) }
 
 }

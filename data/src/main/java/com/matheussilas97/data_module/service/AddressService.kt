@@ -7,6 +7,6 @@ import retrofit2.http.Path
 interface AddressService {
 
     @GET("{cep}/json/")
-    fun searchPostalCode(@Path("cep") postalCode: String): AddressResponse
+    fun searchPostalCode(@Path("cep") postalCode: String): AddressResponse?
 
 }

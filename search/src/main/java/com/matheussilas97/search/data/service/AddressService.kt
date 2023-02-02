@@ -6,7 +6,11 @@ import retrofit2.http.Path
 
 interface AddressService {
 
-    @GET("{cep}/json/")
-    fun searchPostalCode(@Path("cep") postalCode: String): AddressResponse?
+    @GET(SEARCH_CEP_URL)
+    fun searchPostalCode(@Path(POSTAL_CODE) postalCode: String): AddressResponse?
 
+    companion object {
+        const val SEARCH_CEP_URL = "{cep}/json/"
+        const val POSTAL_CODE = "cep"
+    }
 }

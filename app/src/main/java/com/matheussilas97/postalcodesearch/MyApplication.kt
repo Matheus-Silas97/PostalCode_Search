@@ -4,8 +4,8 @@ import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
 import com.matheussilas97.di.modules.dataModule
-import com.matheussilas97.di.modules.domainModule
-import com.matheussilas97.di.modules.presentationModule
+import com.matheussilas97.postalcodesearch.di.domainModule
+import com.matheussilas97.postalcodesearch.di.presentationModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.GlobalContext.startKoin

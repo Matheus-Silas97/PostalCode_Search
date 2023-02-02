@@ -1,4 +1,4 @@
-package com.matheussilas97.di.modules
+package com.matheussilas97.postalcodesearch.di
 
 import com.matheussilas97.historic.domain.usecase.AddressLocalUseCase
 import com.matheussilas97.historic.domain.usecase.AddressLocalUseCaseImpl

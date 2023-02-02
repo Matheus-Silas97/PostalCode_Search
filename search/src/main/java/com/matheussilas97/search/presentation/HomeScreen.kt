@@ -12,10 +12,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.matheussilas97.postalcodesearch.components.ActionButton
-import com.matheussilas97.postalcodesearch.components.TextNormal
-import com.matheussilas97.uikit.theme.Shapes
-
+import com.matheussilas97.uikit.components.ActionButton
+import com.matheussilas97.uikit.components.TextNormal
 
 @Composable
 fun ListAddressScreen() {

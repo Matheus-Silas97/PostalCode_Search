@@ -1,8 +1,9 @@
 package com.matheussilas97.historic.presentation
 
 import androidx.compose.runtime.Composable
+import androidx.navigation.NavHostController
 
 @Composable
-fun HomeScreen(navController: androidx.navigation.NavHostController) {
+fun HomeScreen(navController: NavHostController) {
 
 }

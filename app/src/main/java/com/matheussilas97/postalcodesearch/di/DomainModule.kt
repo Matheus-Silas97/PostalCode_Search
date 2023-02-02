@@ -8,14 +8,14 @@ import org.koin.dsl.module
 
 val domainModule = module {
 
-    factory<com.matheussilas97.search.domain.usecase.AddressUseCase> {
-        com.matheussilas97.search.domain.usecase.AddressUseCaseImpl(
+    factory<AddressUseCase> {
+        AddressUseCaseImpl(
             addressRepository = get()
         )
     }
 
-    factory<com.matheussilas97.historic.domain.usecase.AddressLocalUseCase> {
-        com.matheussilas97.historic.domain.usecase.AddressLocalUseCaseImpl(
+    factory<AddressLocalUseCase> {
+        AddressLocalUseCaseImpl(
             addressRepository = get()
         )
     }

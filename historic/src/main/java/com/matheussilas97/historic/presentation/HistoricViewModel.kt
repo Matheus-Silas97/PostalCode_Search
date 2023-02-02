@@ -7,7 +7,6 @@ import com.matheussilas97.common.Loading
 import com.matheussilas97.common.Resource
 import com.matheussilas97.common.Success
 import com.matheussilas97.common.entity.AddressEntity
-import com.matheussilas97.domain.entity.AddressEntity
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch

@@ -1,9 +1,8 @@
 package com.matheussilas97.historic.data.repository
 
-import com.matheussilas97.data_module.local.AppDatabase
-import com.matheussilas97.data_module.local.entity.Address
-import com.matheussilas97.domain.entity.AddressEntity
-import com.matheussilas97.domain.repository.AddressLocalRepository
+import com.matheussilas97.common.entity.AddressEntity
+import com.matheussilas97.common.local.AppDatabase
+import com.matheussilas97.common.local.entity.Address
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 

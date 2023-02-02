@@ -14,8 +14,8 @@ dependencyResolutionManagement {
 }
 rootProject.name = "PostalCode Search"
 include ':app'
-include ':domain'
-include ':data'
-include ':di'
-include ':di'
 
+include ':historic'
+include ':common'
+include ':search'
+include ':uikit'

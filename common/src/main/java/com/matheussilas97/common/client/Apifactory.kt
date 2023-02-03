@@ -1,4 +1,4 @@
-package com.matheussilas97.common
+package com.matheussilas97.common.client
 
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient

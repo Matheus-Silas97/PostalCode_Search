@@ -1,7 +1,7 @@
 package com.matheussilas97.di.modules
 
 import androidx.room.Room
-import com.matheussilas97.common.Apifactory
+import com.matheussilas97.common.client.Apifactory
 import com.matheussilas97.common.local.AppDatabase
 import com.matheussilas97.historic.data.repository.AddressLocalRepository
 import com.matheussilas97.historic.data.repository.AddressLocalRepositoryImpl

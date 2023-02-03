@@ -6,7 +6,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
-fun TextNormal(text: String, color: Color) {
+fun TextNormal(text: String, color: Color = Color.Black) {
     Text(
         text = text,
         color = color,
@@ -16,5 +16,5 @@ fun TextNormal(text: String, color: Color) {
 @Preview
 @Composable
 fun TextNormalPreview() {
-    TextNormal(text = "teste", Color.Black)
+    TextNormal(text = "teste", color = Color.Black)
 }

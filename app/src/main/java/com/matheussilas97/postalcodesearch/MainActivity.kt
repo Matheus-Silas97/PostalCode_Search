@@ -11,11 +11,10 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.matheussilas97.historic.presentation.HomeScreen
-import com.matheussilas97.search.presentation.HomeViewModel
+import com.matheussilas97.common.utils.RouteNavigation
+import com.matheussilas97.historic.presentation.HistoricScreen
 import com.matheussilas97.search.presentation.SearchAddressScreen
 import com.matheussilas97.uikit.theme.PostalCodeSearchTheme
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : ComponentActivity() {
 
@@ -40,11 +39,11 @@ class MainActivity : ComponentActivity() {
     private fun NavigationComponent() {
         val navController = rememberNavController()
 
-        NavHost(navController = navController, startDestination = "homeScreen") {
-            composable(route = "homeScreen") {
-                HomeScreen(navController)
+        NavHost(navController = navController, startDestination = RouteNavigation.SEARCH_SCREEN) {
+            composable(route = RouteNavigation.HISTORIC_SCREEN) {
+                HistoricScreen(navController)
             }
-            composable(route = "searchAddress") {
+            composable(route = RouteNavigation.SEARCH_SCREEN) {
                 SearchAddressScreen(navController)
             }
         }

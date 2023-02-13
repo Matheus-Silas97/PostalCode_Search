@@ -13,7 +13,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
+import com.matheussilas97.historic.R
 import com.matheussilas97.uikit.components.AddressCard
 import com.matheussilas97.uikit.components.TopBar
 
@@ -21,12 +23,14 @@ import com.matheussilas97.uikit.components.TopBar
 fun HistoricScreen(navController: NavHostController) {
     Scaffold(
         topBar = {
-            TopBar(title = "Historico", onBackPressed = { navController.popBackStack() })
+            TopBar(
+                title = stringResource(R.string.historic),
+                onBackPressed = { navController.popBackStack() })
         }, content = {
             val lazyState = rememberLazyListState()
             LazyColumn(state = lazyState) {
-//                items(items = ){
-//                    AddressCard(address = )
+//                items(items = ){address->
+//                    AddressCard(address = address)
 //                }
             }
         })

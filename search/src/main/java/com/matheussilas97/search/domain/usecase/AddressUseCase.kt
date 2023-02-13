@@ -5,6 +5,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface AddressUseCase {
 
-    fun searchPostalCode(postalCode: String): Flow<AddressEntity?>
+    suspend fun searchPostalCode(postalCode: String): Flow<AddressEntity?>
 
 }

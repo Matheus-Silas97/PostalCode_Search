@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.Flow
 
 class AddressUseCaseImpl(private val addressRepository: AddressRepository) : AddressUseCase {
 
-    override fun searchPostalCode(postalCode: String): Flow<AddressEntity?> =
+    override suspend fun searchPostalCode(postalCode: String): Flow<AddressEntity?> =
         addressRepository.searchCep(postalCode)
 
 }

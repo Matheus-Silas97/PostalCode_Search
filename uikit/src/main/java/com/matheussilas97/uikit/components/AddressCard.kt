@@ -17,45 +17,25 @@ import com.matheussilas97.uikit.R
 
 @Composable
 fun AddressCard(address: AddressEntity) {
-    val textAddressNeighborhood =
-        "${address.street}, ${address.neighborhood}"
-    val textCityState = " ${address.city} - ${address.state}"
-
     Card(
         border = BorderStroke(1.dp, Color.Gray),
         modifier = Modifier
             .fillMaxWidth()
             .padding(all = 2.dp)
     ) {
-        Row(modifier = Modifier.fillMaxWidth()) {
-            Column(
-                modifier = Modifier
-                    .padding(all = 8.dp)
-            ) {
-                TextNormal(text = textAddressNeighborhood, color = Color.Black)
-                TextNormal(text = textCityState, color = Color.Black)
-                TextNormal(text = address.postalCode, color = Color.Black)
-            }
-            Box(
-
-            ) {
-                IconButton(
-                    onClick = {},
-                    modifier = Modifier
-                        .size(size = 30.dp)
-                        .align(Alignment.CenterEnd)
-                ) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_delete),
-                        contentDescription = "icon delete"
-                    )
-                }
-            }
-
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(all = 8.dp)
+        ) {
+            TextNormal(text = "CEP: ${address.postalCode}")
+            TextNormal(text = "Logradouro: ${address.street}")
+            TextNormal(text = "Complemento: ${address.complement}")
+            TextNormal(text = "Bairro: ${address.neighborhood}")
+            TextNormal(text = "Cidade: ${address.city}")
+            TextNormal(text = "Estado: ${address.state}")
         }
-
     }
-
 }
 
 @Composable

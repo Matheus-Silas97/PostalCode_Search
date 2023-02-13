@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.flow
 
 class AddressRepositoryImpl(private val addressService: AddressService) : AddressRepository {
 
-    override fun searchCep(postalCode: String): Flow<AddressEntity?> = flow {
+    override suspend fun searchCep(postalCode: String): Flow<AddressEntity?> = flow {
         val response = addressService.searchPostalCode(postalCode = postalCode)
         emit(
             AddressEntity(

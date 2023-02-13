@@ -5,6 +5,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface AddressRepository {
 
-    fun searchCep(postalCode: String): Flow<AddressEntity?>
+    suspend fun searchCep(postalCode: String): Flow<AddressEntity?>
 
 }

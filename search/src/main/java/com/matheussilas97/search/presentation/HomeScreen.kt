@@ -29,7 +29,10 @@ fun SearchAddressScreen(navController: NavController? = null) {
                 backgroundColor = Color.Blue,
                 contentColor = Color.Black
             ) {
-                Icon(painter = painterResource(id = R.drawable.ic_history), "")
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_history),
+                    contentDescription = "icon historic"
+                )
             }
         }, content = {
             Column(
@@ -39,11 +42,15 @@ fun SearchAddressScreen(navController: NavController? = null) {
                     .padding(all = 12.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                TextField(value = "Digite um CEP", onValueChange = {})
-                Spacer(modifier = Modifier.width(width = 22.dp))
+                TextField(
+                    value = "Digite um CEP",
+                    modifier = Modifier.fillMaxWidth(),
+                    onValueChange = {})
+                Spacer(modifier = Modifier.height(height = 18.dp))
                 ActionButton(
                     text = "Pesquisar CEP",
-                    modifier = Modifier.padding(all = 8.dp),
+                    modifier = Modifier
+                        .fillMaxWidth(),
                     click = {})
             }
         })

@@ -1,12 +1,20 @@
 package com.matheussilas97.search.domain.usecase
 
+import com.matheussilas97.common.Resource
 import com.matheussilas97.common.entity.AddressEntity
-import com.matheussilas97.search.data.repository.AddressRepository
+import com.matheussilas97.search.domain.repository.AddressRepository
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 
 class AddressUseCaseImpl(private val addressRepository: AddressRepository) : AddressUseCase {
 
-    override suspend fun searchPostalCode(postalCode: String): Flow<AddressEntity?> =
-        addressRepository.searchCep(postalCode)
+    override suspend fun searchPostalCode(postalCode: String): Flow<AddressEntity?> = flow {
+        with(addressRepository.searchCep(postalCode)) {
+            when (this.data != null) {
+                true -> Resource.Success(this)
+                else -> Resource.Error(message = "Um erro aconteceu, tente novamente mais tarde")
+            }
+        }
+    }
 
 }

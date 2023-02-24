@@ -3,7 +3,7 @@ package com.matheussilas97.postalcodesearch
 import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
-import com.matheussilas97.di.modules.dataModule
+import com.matheussilas97.postalcodesearch.di.dataModule
 import com.matheussilas97.postalcodesearch.di.domainModule
 import com.matheussilas97.postalcodesearch.di.presentationModule
 import org.koin.android.ext.koin.androidContext

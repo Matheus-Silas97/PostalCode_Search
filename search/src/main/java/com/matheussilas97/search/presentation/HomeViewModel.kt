@@ -1,36 +1,45 @@
 package com.matheussilas97.search.presentation
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.matheussilas97.common.Failure
-import com.matheussilas97.common.Loading
+
 import com.matheussilas97.common.Resource
-import com.matheussilas97.common.Success
+
 import com.matheussilas97.common.entity.AddressEntity
+import com.matheussilas97.search.domain.AddressState
 import com.matheussilas97.search.domain.usecase.AddressUseCase
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
 class HomeViewModel(private val addressUseCase: AddressUseCase) : ViewModel() {
 
-    private val getAddressLiveData = MutableStateFlow<Resource<AddressEntity?>>(Loading())
-    val _getAddressLiveData: StateFlow<Resource<AddressEntity?>>
-        get() = getAddressLiveData
+    private var getAddressStateFlow by mutableStateOf(AddressState())
+        private set
+
+//    val _getAddressStateFlow: StateFlow<Resource<AddressEntity?>>
+//        get() = getAddressStateFlow
 
     fun searchAddress(postalCode: String) {
         viewModelScope.launch {
-            getAddressLiveData.value = Loading()
-            addressUseCase.searchPostalCode(postalCode = postalCode)
-                .onStart {
-                    getAddressLiveData.value = Loading()
-                }.catch {
-                    getAddressLiveData.value = Failure()
-                }.collect {
-                    getAddressLiveData.value = Success(data = it)
-                }
+            getAddressStateFlow = getAddressStateFlow.copy(
+                isLoading = true,
+                error = null
+            )
+
+//            when(val result = addressUseCase.searchPostalCode().)
+
+
+//            addressUseCase.searchPostalCode(postalCode = postalCode)
+//                .onStart {
+//                    getAddressStateFlow.update { Loading() }
+//                }.catch {
+//                    getAddressStateFlow.update { Failure() }
+//                }.collect {
+//                    getAddressStateFlow.update { it }
+//                }
         }
     }
 

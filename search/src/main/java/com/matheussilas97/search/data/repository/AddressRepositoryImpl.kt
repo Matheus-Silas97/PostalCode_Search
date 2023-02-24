@@ -1,24 +1,28 @@
 package com.matheussilas97.search.data.repository
 
+import com.matheussilas97.common.Resource
+import com.matheussilas97.common.Resource.Success
 import com.matheussilas97.common.entity.AddressEntity
+import com.matheussilas97.search.data.mapper.toAddressEntity
 import com.matheussilas97.search.data.service.AddressService
+import com.matheussilas97.search.domain.repository.AddressRepository
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.withContext
 
-class AddressRepositoryImpl(private val addressService: AddressService) : AddressRepository {
+class AddressRepositoryImpl(
+    private val addressService: AddressService,
+    private val defaultDispatcher: CoroutineDispatcher = Dispatchers.Default
+) : AddressRepository {
 
-    override suspend fun searchCep(postalCode: String): Flow<AddressEntity?> = flow {
-        val response = addressService.searchPostalCode(postalCode = postalCode)
-        emit(
-            AddressEntity(
-                postalCode = response?.postalCode ?: "",
-                street = response?.street ?: "",
-                complement = response?.complement ?: "",
-                neighborhood = response?.neighborhood ?: "",
-                city = response?.city ?: "",
-                state = response?.state ?: ""
+    override suspend fun searchCep(postalCode: String): Resource<AddressEntity?> =
+        withContext(defaultDispatcher) {
+            Success(
+                data = addressService.searchPostalCode(postalCode = postalCode).toAddressEntity()
             )
-        )
-    }
+        }
+
 
 }

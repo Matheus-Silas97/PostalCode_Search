@@ -1,11 +1,11 @@
-package com.matheussilas97.di.modules
+package com.matheussilas97.postalcodesearch.di
 
 import androidx.room.Room
 import com.matheussilas97.common.client.Apifactory
 import com.matheussilas97.common.local.AppDatabase
 import com.matheussilas97.historic.data.repository.AddressLocalRepository
 import com.matheussilas97.historic.data.repository.AddressLocalRepositoryImpl
-import com.matheussilas97.search.data.repository.AddressRepository
+import com.matheussilas97.search.domain.repository.AddressRepository
 import com.matheussilas97.search.data.repository.AddressRepositoryImpl
 import com.matheussilas97.search.data.service.AddressService
 import org.koin.dsl.module
@@ -18,7 +18,7 @@ val dataModule = module {
 
     single<AddressRepository> {
         AddressRepositoryImpl(
-            addressService = get()
+            addressService = get(), defaultDispatcher = get()
         )
     }
 

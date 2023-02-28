@@ -29,7 +29,7 @@ class MyApplication : Application() {
     private fun initKoin() {
         startKoin {
             androidLogger(Level.ERROR)
-            androidContext(this@MyApplication)
+            androidContext(applicationContext)
             modules(mainModules)
         }
     }

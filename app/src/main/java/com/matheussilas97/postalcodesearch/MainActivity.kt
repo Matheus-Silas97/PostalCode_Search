@@ -40,11 +40,12 @@ class MainActivity : ComponentActivity() {
         val navController = rememberNavController()
 
         NavHost(navController = navController, startDestination = RouteNavigation.SEARCH_SCREEN) {
-            composable(route = RouteNavigation.HISTORIC_SCREEN) {
-                HistoricScreen(navController)
-            }
             composable(route = RouteNavigation.SEARCH_SCREEN) {
                 SearchAddressScreen(navController)
+            }
+
+            composable(route = RouteNavigation.HISTORIC_SCREEN) {
+                HistoricScreen(navController)
             }
         }
     }

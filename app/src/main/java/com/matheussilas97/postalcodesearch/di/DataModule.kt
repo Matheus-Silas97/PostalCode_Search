@@ -8,6 +8,7 @@ import com.matheussilas97.historic.data.repository.AddressLocalRepositoryImpl
 import com.matheussilas97.search.domain.repository.AddressRepository
 import com.matheussilas97.search.data.repository.AddressRepositoryImpl
 import com.matheussilas97.search.data.service.AddressService
+import kotlinx.coroutines.Dispatchers
 import org.koin.dsl.module
 
 val dataModule = module {
@@ -16,13 +17,15 @@ val dataModule = module {
 
     single { Apifactory.create(serviceClass = AddressService::class.java) }
 
-    single<AddressRepository> {
+    single { Dispatchers.Default }
+
+    factory<AddressRepository> {
         AddressRepositoryImpl(
             addressService = get(), defaultDispatcher = get()
         )
     }
 
-    single<AddressLocalRepository> {
+    factory <AddressLocalRepository> {
         AddressLocalRepositoryImpl(
             appDatabase = get()
         )

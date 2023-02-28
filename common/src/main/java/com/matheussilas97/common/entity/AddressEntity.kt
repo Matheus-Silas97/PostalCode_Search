@@ -2,16 +2,16 @@ package com.matheussilas97.common.entity
 
 data class AddressEntity(
 
-    val postalCode: String,
+    val postalCode: String = "",
 
-    val street: String,
+    val street: String = "",
 
-    val complement: String,
+    val complement: String = "",
 
-    val neighborhood: String,
+    val neighborhood: String = "",
 
-    val city: String,
+    val city: String = "",
 
-    val state: String
+    val state: String = ""
 
 )

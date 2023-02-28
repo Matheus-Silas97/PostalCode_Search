@@ -17,12 +17,9 @@ class AddressRepositoryImpl(
     private val defaultDispatcher: CoroutineDispatcher = Dispatchers.Default
 ) : AddressRepository {
 
-    override suspend fun searchCep(postalCode: String): Resource<AddressEntity?> =
+    override suspend fun searchCep(postalCode: String): AddressEntity? =
         withContext(defaultDispatcher) {
-            Success(
-                data = addressService.searchPostalCode(postalCode = postalCode).toAddressEntity()
-            )
+            addressService.searchPostalCode(postalCode = postalCode).toAddressEntity()
         }
-
 
 }

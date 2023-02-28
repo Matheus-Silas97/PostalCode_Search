@@ -1,14 +1,7 @@
 package com.matheussilas97.search.presentation
 
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-
-import com.matheussilas97.common.Resource
-
-import com.matheussilas97.common.entity.AddressEntity
 import com.matheussilas97.search.domain.AddressState
 import com.matheussilas97.search.domain.usecase.AddressUseCase
 import kotlinx.coroutines.flow.*
@@ -16,30 +9,25 @@ import kotlinx.coroutines.launch
 
 class HomeViewModel(private val addressUseCase: AddressUseCase) : ViewModel() {
 
-    private var getAddressStateFlow by mutableStateOf(AddressState())
-        private set
+    private val state = MutableStateFlow(AddressState(isLoading = true))
+    val _state: StateFlow<AddressState> = state
 
-//    val _getAddressStateFlow: StateFlow<Resource<AddressEntity?>>
-//        get() = getAddressStateFlow
+    fun interact(interaction: SearchAddressInteraction) {
+        when (interaction) {
+            is SearchAddressInteraction.SearchAddress -> searchAddress(interaction.postalCode)
+        }
+    }
 
-    fun searchAddress(postalCode: String) {
+    private fun searchAddress(postalCode: String) {
         viewModelScope.launch {
-            getAddressStateFlow = getAddressStateFlow.copy(
-                isLoading = true,
-                error = null
-            )
-
-//            when(val result = addressUseCase.searchPostalCode().)
-
-
-//            addressUseCase.searchPostalCode(postalCode = postalCode)
-//                .onStart {
-//                    getAddressStateFlow.update { Loading() }
-//                }.catch {
-//                    getAddressStateFlow.update { Failure() }
-//                }.collect {
-//                    getAddressStateFlow.update { it }
-//                }
+            addressUseCase.searchPostalCode(postalCode = postalCode)
+                .onStart {
+                    state.update { AddressState(addressEntity = null, isLoading = true, error = null) }
+                }.catch { throwable ->
+                    state.update { AddressState(addressEntity = null, isLoading = false, error = throwable.message) }
+                }.collect {
+                    state.update { AddressState(addressEntity = it.addressEntity, isLoading = false, error = null) }
+                }
         }
     }
 

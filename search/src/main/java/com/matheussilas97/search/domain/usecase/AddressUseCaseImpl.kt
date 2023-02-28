@@ -9,12 +9,7 @@ import kotlinx.coroutines.flow.flow
 class AddressUseCaseImpl(private val addressRepository: AddressRepository) : AddressUseCase {
 
     override suspend fun searchPostalCode(postalCode: String): Flow<AddressEntity?> = flow {
-        with(addressRepository.searchCep(postalCode)) {
-            when (this.data != null) {
-                true -> Resource.Success(this)
-                else -> Resource.Error(message = "Um erro aconteceu, tente novamente mais tarde")
-            }
-        }
+        emit(addressRepository.searchCep(postalCode))
     }
 
 }

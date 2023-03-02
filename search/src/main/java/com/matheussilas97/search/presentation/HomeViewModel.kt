@@ -9,8 +9,8 @@ import kotlinx.coroutines.launch
 
 class HomeViewModel(private val addressUseCase: AddressUseCase) : ViewModel() {
 
-    private val state = MutableStateFlow(AddressState(isLoading = true))
-    val _state: StateFlow<AddressState> = state
+    private val _state = MutableStateFlow(AddressState(isLoading = true))
+    val state: StateFlow<AddressState> = _state
 
     fun interact(interaction: SearchAddressInteraction) {
         when (interaction) {
@@ -22,11 +22,12 @@ class HomeViewModel(private val addressUseCase: AddressUseCase) : ViewModel() {
         viewModelScope.launch {
             addressUseCase.searchPostalCode(postalCode = postalCode)
                 .onStart {
-                    state.update { AddressState(addressEntity = null, isLoading = true, error = null) }
+                    _state.update { it.copy(addressEntity = null, isLoading = true, error = null) }
                 }.catch { throwable ->
-                    state.update { AddressState(addressEntity = null, isLoading = false, error = throwable.message) }
-                }.collect {
-                    state.update { AddressState(addressEntity = it.addressEntity, isLoading = false, error = null) }
+                    _state.update { it.copy(addressEntity = null, isLoading = false, error = throwable.message) }
+                }.collect {addressEntity ->
+                    _state.update {
+                        it.copy(addressEntity = addressEntity, isLoading = false, error = null) }
                 }
         }
     }

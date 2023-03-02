@@ -1,11 +1,9 @@
 package com.matheussilas97.search.presentation
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.FloatingActionButton
-import androidx.compose.material.Icon
-import androidx.compose.material.Scaffold
-import androidx.compose.material.TextField
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -16,11 +14,10 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.matheussilas97.common.entity.AddressEntity
 import com.matheussilas97.common.utils.RouteNavigation
+import com.matheussilas97.search.presentation.component.AddressCard
 import com.matheussilas97.uikit.R
 import com.matheussilas97.uikit.components.ActionButton
-import com.matheussilas97.uikit.components.AddressCard
 import org.koin.androidx.compose.getViewModel
 
 @Composable
@@ -29,7 +26,7 @@ fun SearchAddressScreen(
     viewModel: HomeViewModel = getViewModel()
 ) {
 
-    val state by viewModel._state.collectAsState()
+    val state by viewModel.state.collectAsState()
 
     Scaffold(modifier = Modifier.padding(all = 8.dp),
         floatingActionButton = {
@@ -51,6 +48,13 @@ fun SearchAddressScreen(
                     .padding(all = 12.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
+
+                Image(
+                    painter = painterResource(id = R.drawable.ic_location),
+                    contentDescription = "location image",
+                    modifier = Modifier.size(150.dp)
+                )
+                Spacer(modifier = Modifier.height(height = 8.dp))
                 TextField(
                     value = "Digite um CEP",
                     modifier = Modifier.fillMaxWidth(),
@@ -61,10 +65,11 @@ fun SearchAddressScreen(
                     modifier = Modifier
                         .fillMaxWidth(),
                     click = {
-                        viewModel.interact(interaction = SearchAddressInteraction.SearchAddress("08391607"))
+                        viewModel.interact(interaction = SearchAddressInteraction.SearchAddress(postalCode = "08391607"))
                     })
                 Spacer(modifier = Modifier.height(height = 18.dp))
-                AddressCard(state.addressEntity ?: AddressEntity())
+                Text(text = "${state.addressEntity?.postalCode}")
+                AddressCard(viewModel = viewModel)
             }
         })
 

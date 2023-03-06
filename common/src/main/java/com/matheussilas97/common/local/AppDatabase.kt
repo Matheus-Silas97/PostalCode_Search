@@ -8,4 +8,5 @@ import com.matheussilas97.common.local.entity.Address
 @Database(entities = [Address::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun address(): AddressDao
+
 }

@@ -7,7 +7,7 @@ import org.koin.dsl.module
 
 val presentationModule = module {
 
-    viewModel { HomeViewModel(addressUseCase = get()) }
+    viewModel { HomeViewModel(addressUseCase = get(), addressLocalUseCase = get()) }
 
     viewModel { HistoricViewModel(historicUseCase = get()) }
 

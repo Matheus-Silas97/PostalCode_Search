@@ -69,6 +69,7 @@ fun SearchAddressScreen(
                     })
                 Spacer(modifier = Modifier.height(height = 18.dp))
                 Text(text = "${state.addressEntity?.postalCode}")
+
                 AddressCard(viewModel = viewModel)
             }
         })

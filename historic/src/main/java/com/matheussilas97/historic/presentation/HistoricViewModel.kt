@@ -3,67 +3,64 @@ package com.matheussilas97.historic.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.matheussilas97.common.entity.AddressEntity
-import com.matheussilas97.historic.domain.usecase.AddressLocalUseCase
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.onStart
+import com.matheussilas97.historic.domain.usecase.HistoricAddressUseCase
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
-class HistoricViewModel(private val historicUseCase: AddressLocalUseCase) : ViewModel() {
+class HistoricViewModel(private val historicUseCase: HistoricAddressUseCase) : ViewModel() {
 
-//    private val historicLiveData = MutableStateFlow<Resource<List<AddressEntity>>>(Loading())
-//    val _historicLiveData: StateFlow<Resource<List<AddressEntity>>>
-//        get() = historicLiveData
-//
-//    private val saveAddressLiveData = MutableStateFlow<Resource<Any?>>(Loading())
-//    val _saveAddressLiveData: StateFlow<Resource<Any?>>
-//        get() = saveAddressLiveData
-//
-//    private val deleteAddressLiveData = MutableStateFlow<Resource<Any?>>(Loading())
-//    val _deleteAddressLiveData: StateFlow<Resource<Any?>>
-//        get() = deleteAddressLiveData
-//
-//    fun getAllAddress() {
-//        viewModelScope.launch {
-//            historicLiveData.value = Loading()
-//            historicUseCase.getAllAddress()
-//                .onStart {
-//                    historicLiveData.value = Loading()
-//                }.catch {
-//                    historicLiveData.value = Failure()
-//                }.collect {
-//                    historicLiveData.value = Success(data = it)
-//                }
-//        }
-//    }
-//
-//    fun saveAddress(address: AddressEntity) {
-//        viewModelScope.launch {
-//            saveAddressLiveData.value = Loading()
-//            historicUseCase.saveAddress(address = address)
-//                .onStart {
-//                    saveAddressLiveData.value = Loading()
-//                }.catch {
-//                    saveAddressLiveData.value = Failure()
-//                }.collect {
-//                    saveAddressLiveData.value = Success(data = it)
-//                }
-//        }
-//    }
-//
-//    fun deleteAddress(address: AddressEntity) {
-//        viewModelScope.launch {
-//            deleteAddressLiveData.value = Loading()
-//            historicUseCase.deleteAddress(address = address)
-//                .onStart {
-//                    deleteAddressLiveData.value = Loading()
-//                }.catch {
-//                    deleteAddressLiveData.value = Failure()
-//                }.collect {
-//                    deleteAddressLiveData.value = Success(data = it)
-//                }
-//        }
-//    }
+    private val _state = MutableStateFlow(HistoricAddressState(isLoading = true))
+    val state: StateFlow<HistoricAddressState> = _state
+
+    fun interact(interaction: HistoricAddressInteraction) {
+        when (interaction) {
+            is HistoricAddressInteraction.LoadAllAddress -> getAllAddress()
+            is HistoricAddressInteraction.SaveAddress -> saveAddress(address = interaction.address)
+            is HistoricAddressInteraction.DeleteAddress -> saveAddress(address = interaction.address)
+        }
+    }
+
+    init {
+        interact(interaction = HistoricAddressInteraction.LoadAllAddress)
+    }
+
+    private fun getAllAddress() {
+        viewModelScope.launch {
+            historicUseCase.getAllAddress()
+                .onStart {
+                    _state.update { it.copy(isLoading = true, error = null) }
+                }.catch { throwable ->
+                    _state.update { it.copy(error =  throwable.message, isLoading = false, addressEntity = null, saveAddress = false, deleteAddress = false) }
+                }.collect {addressList->
+                    _state.update { it.copy(addressEntity = addressList, isLoading = false, error = null) }
+                }
+        }
+    }
+
+    private fun saveAddress(address: AddressEntity) {
+        viewModelScope.launch {
+            historicUseCase.saveAddress(address = address)
+                .onStart {
+                    _state.update { it.copy(isLoading = true, error = null) }
+                }.catch { throwable ->
+                    _state.update { it.copy(error =  throwable.message, isLoading = false, addressEntity = null, saveAddress = false, deleteAddress = false) }
+                }.collect {
+                    _state.update { it.copy(saveAddress = true, addressEntity = null, isLoading = false, error = null) }
+                }
+        }
+    }
+
+    private fun deleteAddress(address: AddressEntity) {
+        viewModelScope.launch {
+            historicUseCase.deleteAddress(address = address)
+                .onStart {
+                    _state.update { it.copy(isLoading = true, error = null) }
+                }.catch { throwable ->
+                    _state.update { it.copy(error =  throwable.message, isLoading = false, addressEntity = null, saveAddress = false, deleteAddress = false) }
+                }.collect {
+                    _state.update { it.copy(deleteAddress = true, addressEntity = null, isLoading = false, error = null) }
+                }
+        }
+    }
 
 }

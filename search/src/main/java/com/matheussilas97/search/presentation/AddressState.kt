@@ -1,4 +1,4 @@
-package com.matheussilas97.search.domain
+package com.matheussilas97.search.presentation
 
 import com.matheussilas97.common.entity.AddressEntity
 

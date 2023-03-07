@@ -24,8 +24,8 @@ class HistoricAddressRepositoryImpl(private val appDatabase: AppDatabase) :
         }
     }
 
-    override fun deleteAddress(address: AddressEntity): Flow<Any?> = flow {
-        val response = appDatabase.address().deleteTraining(
+    override suspend fun deleteAddress(address: AddressEntity): Any = withContext(Dispatchers.IO) {
+        return@withContext appDatabase.address().deleteTraining(
             Address(
                 postalCode = address.postalCode ?: "",
                 street = address.street ?: "",
@@ -35,6 +35,6 @@ class HistoricAddressRepositoryImpl(private val appDatabase: AppDatabase) :
                 state = address.state ?: ""
             )
         )
-        emit(response)
+
     }
 }

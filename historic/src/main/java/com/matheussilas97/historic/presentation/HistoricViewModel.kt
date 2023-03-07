@@ -16,6 +16,7 @@ class HistoricViewModel(private val historicUseCase: HistoricAddressUseCase) : V
         when (interaction) {
             is HistoricAddressInteraction.LoadAllAddress -> getAllAddress()
             is HistoricAddressInteraction.DeleteAddress -> deleteAddress(address = interaction.address)
+            else -> {}
         }
     }
 
@@ -45,6 +46,7 @@ class HistoricViewModel(private val historicUseCase: HistoricAddressUseCase) : V
                     _state.update { it.copy(error =  throwable.message, isLoading = false, addressEntity = null, deleteAddress = false) }
                 }.collect {
                     _state.update { it.copy(deleteAddress = true, addressEntity = null, isLoading = false, error = null) }
+                    getAllAddress()
                 }
         }
     }

@@ -11,6 +11,7 @@ class HistoricAddressUseCaseImpl(private val addressRepository: HistoricAddressR
     override fun getAllAddress(): Flow<List<AddressEntity>> =
         flow { addressRepository.getAllAddress() }
 
-    override fun deleteAddress(address: AddressEntity): Flow<Any?> =
+    override fun deleteAddress(address: AddressEntity): Flow<Any?> = flow {
         addressRepository.deleteAddress(address)
+    }
 }

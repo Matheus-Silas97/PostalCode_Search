@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.matheussilas97.common.domain.usecase.AddressLocalUseCase
 import com.matheussilas97.common.entity.AddressEntity
-import com.matheussilas97.search.domain.AddressState
 import com.matheussilas97.search.domain.usecase.AddressUseCase
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch

@@ -3,14 +3,14 @@ package com.matheussilas97.search.presentation
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -18,6 +18,7 @@ import com.matheussilas97.common.utils.RouteNavigation
 import com.matheussilas97.search.presentation.component.AddressCard
 import com.matheussilas97.uikit.R
 import com.matheussilas97.uikit.components.ActionButton
+import com.matheussilas97.uikit.components.ErrorDialog
 import org.koin.androidx.compose.getViewModel
 
 @Composable
@@ -27,6 +28,7 @@ fun SearchAddressScreen(
 ) {
 
     val state by viewModel.state.collectAsState()
+    var searchValueState by remember { mutableStateOf("") }
 
     Scaffold(modifier = Modifier.padding(all = 8.dp),
         floatingActionButton = {
@@ -48,32 +50,41 @@ fun SearchAddressScreen(
                     .padding(all = 12.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-
                 Image(
                     painter = painterResource(id = R.drawable.ic_location),
                     contentDescription = "location image",
                     modifier = Modifier.size(150.dp)
                 )
-                Spacer(modifier = Modifier.height(height = 8.dp))
-                TextField(
-                    value = "Digite um CEP",
+                Spacer(modifier = Modifier.height(height = 12.dp))
+                OutlinedTextField(
+                    value = searchValueState,
+                    onValueChange = { searchValueState = it },
+                    placeholder = { Text(text = "Digite um CEP") },
                     modifier = Modifier.fillMaxWidth(),
-                    onValueChange = {})
+                    maxLines = 1,
+                    keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number)
+                )
+
                 Spacer(modifier = Modifier.height(height = 18.dp))
+
                 ActionButton(
                     text = "Pesquisar CEP",
                     modifier = Modifier
                         .fillMaxWidth(),
                     click = {
-                        viewModel.interact(interaction = SearchAddressInteraction.SearchAddress(postalCode = "08391607"))
+                        if (searchValueState.length >= 8) {
+                            viewModel.interact(
+                                interaction = SearchAddressInteraction.SearchAddress(
+                                    postalCode = searchValueState
+                                )
+                            )
+                        }
                     })
                 Spacer(modifier = Modifier.height(height = 18.dp))
-                Text(text = "${state.addressEntity?.postalCode}")
 
                 AddressCard(viewModel = viewModel)
             }
         })
-
 }
 
 

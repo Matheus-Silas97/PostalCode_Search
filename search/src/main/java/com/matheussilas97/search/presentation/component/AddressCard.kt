@@ -31,14 +31,12 @@ fun AddressCard(viewModel: HomeViewModel) {
                 .fillMaxWidth()
                 .padding(all = 8.dp)
         ) {
-
-            Text(text = "${state.addressEntity?.postalCode}")
-            TextNormal(text = "CEP: ${state.addressEntity?.postalCode}")
-            TextNormal(text = "Logradouro: ${state.addressEntity?.street}")
-            TextNormal(text = "Complemento: ${state.addressEntity?.complement}")
-            TextNormal(text = "Bairro: ${state.addressEntity?.neighborhood}")
-            TextNormal(text = "Cidade: ${state.addressEntity?.city}")
-            TextNormal(text = "Estado: ${state.addressEntity?.state}")
+            TextNormal(text = "CEP: ${state.addressEntity?.postalCode.orEmpty()}")
+            TextNormal(text = "Logradouro: ${state.addressEntity?.street.orEmpty()}")
+            TextNormal(text = "Complemento: ${state.addressEntity?.complement.orEmpty()}")
+            TextNormal(text = "Bairro: ${state.addressEntity?.neighborhood.orEmpty()}")
+            TextNormal(text = "Cidade: ${state.addressEntity?.city.orEmpty()}")
+            TextNormal(text = "Estado: ${state.addressEntity?.state.orEmpty()}")
         }
     }
 }

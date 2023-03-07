@@ -50,7 +50,6 @@ class HomeViewModel(
             address?.let { addressEntity ->
                 addressLocalUseCase.saveAddress(address = addressEntity)
             }
-
         }
     }
 

@@ -6,8 +6,6 @@ sealed class HistoricAddressInteraction {
 
     object LoadAllAddress : HistoricAddressInteraction()
 
-    data class SaveAddress(val address: AddressEntity) : HistoricAddressInteraction()
-
     data class DeleteAddress(val address: AddressEntity) : HistoricAddressInteraction()
 
 }

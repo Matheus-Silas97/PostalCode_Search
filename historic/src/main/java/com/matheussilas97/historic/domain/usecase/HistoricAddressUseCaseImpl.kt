@@ -3,13 +3,14 @@ package com.matheussilas97.historic.domain.usecase
 import com.matheussilas97.common.entity.AddressEntity
 import com.matheussilas97.historic.data.repository.HistoricAddressRepository
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 
 class HistoricAddressUseCaseImpl(private val addressRepository: HistoricAddressRepository) :
     HistoricAddressUseCase {
 
-    override suspend fun getAllAddress(): Flow<List<AddressEntity>> =
-        addressRepository.getAllAddress()
+    override fun getAllAddress(): Flow<List<AddressEntity>> =
+        flow { addressRepository.getAllAddress() }
 
-    override suspend fun deleteAddress(address: AddressEntity): Flow<Any?> =
+    override fun deleteAddress(address: AddressEntity): Flow<Any?> =
         addressRepository.deleteAddress(address)
 }

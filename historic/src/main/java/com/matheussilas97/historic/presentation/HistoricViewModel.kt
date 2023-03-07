@@ -15,8 +15,7 @@ class HistoricViewModel(private val historicUseCase: HistoricAddressUseCase) : V
     fun interact(interaction: HistoricAddressInteraction) {
         when (interaction) {
             is HistoricAddressInteraction.LoadAllAddress -> getAllAddress()
-            is HistoricAddressInteraction.SaveAddress -> saveAddress(address = interaction.address)
-            is HistoricAddressInteraction.DeleteAddress -> saveAddress(address = interaction.address)
+            is HistoricAddressInteraction.DeleteAddress -> deleteAddress(address = interaction.address)
         }
     }
 
@@ -30,22 +29,9 @@ class HistoricViewModel(private val historicUseCase: HistoricAddressUseCase) : V
                 .onStart {
                     _state.update { it.copy(isLoading = true, error = null) }
                 }.catch { throwable ->
-                    _state.update { it.copy(error =  throwable.message, isLoading = false, addressEntity = null, saveAddress = false, deleteAddress = false) }
+                    _state.update { it.copy(error =  throwable.message, isLoading = false, addressEntity = null, deleteAddress = false) }
                 }.collect {addressList->
                     _state.update { it.copy(addressEntity = addressList, isLoading = false, error = null) }
-                }
-        }
-    }
-
-    private fun saveAddress(address: AddressEntity) {
-        viewModelScope.launch {
-            historicUseCase.saveAddress(address = address)
-                .onStart {
-                    _state.update { it.copy(isLoading = true, error = null) }
-                }.catch { throwable ->
-                    _state.update { it.copy(error =  throwable.message, isLoading = false, addressEntity = null, saveAddress = false, deleteAddress = false) }
-                }.collect {
-                    _state.update { it.copy(saveAddress = true, addressEntity = null, isLoading = false, error = null) }
                 }
         }
     }
@@ -56,7 +42,7 @@ class HistoricViewModel(private val historicUseCase: HistoricAddressUseCase) : V
                 .onStart {
                     _state.update { it.copy(isLoading = true, error = null) }
                 }.catch { throwable ->
-                    _state.update { it.copy(error =  throwable.message, isLoading = false, addressEntity = null, saveAddress = false, deleteAddress = false) }
+                    _state.update { it.copy(error =  throwable.message, isLoading = false, addressEntity = null, deleteAddress = false) }
                 }.collect {
                     _state.update { it.copy(deleteAddress = true, addressEntity = null, isLoading = false, error = null) }
                 }

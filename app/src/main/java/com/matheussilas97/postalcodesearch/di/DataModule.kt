@@ -19,7 +19,7 @@ val dataModule = module {
 
     single { Apifactory.create(serviceClass = AddressService::class.java) }
 
-    single { Dispatchers.Default }
+    single { Dispatchers.IO }
 
     factory<AddressRepository> {
         AddressRepositoryImpl(

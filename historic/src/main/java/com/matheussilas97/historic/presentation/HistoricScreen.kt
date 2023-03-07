@@ -12,6 +12,7 @@ import androidx.navigation.NavHostController
 import com.matheussilas97.historic.R
 import com.matheussilas97.uikit.components.AddressCard
 import com.matheussilas97.uikit.components.TopBar
+import kotlinx.coroutines.coroutineScope
 import org.koin.androidx.compose.getViewModel
 
 @Composable

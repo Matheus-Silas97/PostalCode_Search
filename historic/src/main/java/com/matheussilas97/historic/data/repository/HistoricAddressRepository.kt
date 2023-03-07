@@ -5,8 +5,8 @@ import kotlinx.coroutines.flow.Flow
 
 interface HistoricAddressRepository {
 
-    suspend fun getAllAddress(): Flow<List<AddressEntity>>
+     suspend fun getAllAddress(): List<AddressEntity>
 
-    suspend fun deleteAddress(address: AddressEntity): Flow<Any?>
+     fun deleteAddress(address: AddressEntity): Flow<Any?>
 
 }

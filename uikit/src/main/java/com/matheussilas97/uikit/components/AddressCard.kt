@@ -3,6 +3,7 @@ package com.matheussilas97.uikit.components
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Card
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -10,13 +11,15 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.matheussilas97.common.entity.AddressEntity
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun AddressCard(address: AddressEntity) {
+fun AddressCard(address: AddressEntity, delete: () -> Unit) {
     Card(
         border = BorderStroke(1.dp, Color.Gray),
         modifier = Modifier
             .fillMaxWidth()
-            .padding(all = 2.dp)
+            .padding(all = 2.dp),
+        onClick = { delete.invoke() }
     ) {
         Column(
             modifier = Modifier
@@ -44,6 +47,6 @@ fun HistoricComponentPreview() {
             "Jardim Brasil",
             "São Paulo",
             "SP"
-        )
+        ), {}
     )
 }

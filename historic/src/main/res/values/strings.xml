@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="historic">Historico</string>
+    <string name="delete_address_message">Deseja apagar esse endereço do histórico?</string>
+    <string name="delete_address_title">Apagar endereço?</string>
+    <string name="delete">Apagar</string>
+    <string name="cancel">Cancelar</string>
 </resources>

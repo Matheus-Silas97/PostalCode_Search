@@ -4,4 +4,6 @@ sealed class SearchAddressInteraction {
 
     data class SearchAddress(val postalCode: String) : SearchAddressInteraction()
 
+    object CloseDialog : SearchAddressInteraction()
+
 }

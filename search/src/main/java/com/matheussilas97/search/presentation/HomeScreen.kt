@@ -8,6 +8,7 @@ import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
@@ -55,7 +56,9 @@ fun SearchAddressScreen(
                     contentDescription = "location image",
                     modifier = Modifier.size(150.dp)
                 )
+
                 Spacer(modifier = Modifier.height(height = 12.dp))
+
                 OutlinedTextField(
                     value = searchValueState,
                     onValueChange = { searchValueState = it },
@@ -80,6 +83,21 @@ fun SearchAddressScreen(
                             )
                         }
                     })
+
+                if (state.isLoading) {
+                    CircularProgressIndicator(
+                        modifier = Modifier
+                            .size(40.dp)
+                            .scale(0.8f)
+                    )
+                }
+
+                if (!state.error.isNullOrEmpty()) {
+                    ErrorDialog(throwable = Throwable(message = state.error)) {
+                        viewModel.interact(SearchAddressInteraction.CloseDialog)
+                    }
+                }
+
                 Spacer(modifier = Modifier.height(height = 18.dp))
 
                 AddressCard(viewModel = viewModel)

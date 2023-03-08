@@ -13,12 +13,13 @@ class HomeViewModel(
     private val addressLocalUseCase: AddressLocalUseCase
 ) : ViewModel() {
 
-    private val _state = MutableStateFlow(AddressState(isLoading = true))
+    private val _state = MutableStateFlow(AddressState(isLoading = false))
     val state: StateFlow<AddressState> = _state
 
     fun interact(interaction: SearchAddressInteraction) {
         when (interaction) {
             is SearchAddressInteraction.SearchAddress -> searchAddress(interaction.postalCode)
+            is SearchAddressInteraction.CloseDialog -> closeDialog()
         }
     }
 
@@ -37,7 +38,11 @@ class HomeViewModel(
                     }
                 }.collect { addressEntity ->
                     _state.update {
-                        it.copy(addressEntity = addressEntity, isLoading = false, error = null)
+                        it.copy(
+                            addressEntity = addressEntity,
+                            isLoading = false,
+                            error = null
+                        )
                     }
                     saveAddressInDataBase(addressEntity)
                 }
@@ -50,6 +55,10 @@ class HomeViewModel(
                 addressLocalUseCase.saveAddress(address = addressEntity)
             }
         }
+    }
+
+    private fun closeDialog() {
+        _state.update { it.copy(error = null) }
     }
 
 }

@@ -52,7 +52,14 @@ class HomeViewModel(
     private fun saveAddressInDataBase(address: AddressEntity?) {
         viewModelScope.launch {
             address?.let { addressEntity ->
-                addressLocalUseCase.saveAddress(address = addressEntity)
+                addressLocalUseCase.saveAddress(address = addressEntity).catch { throwable ->
+                    _state.update {
+                        it.copy(
+                            isLoading = false,
+                            error = throwable.message
+                        )
+                    }
+                }.collect {}
             }
         }
     }

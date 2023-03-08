@@ -5,6 +5,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface AddressLocalRepository {
 
-    suspend fun saveAddress(address: AddressEntity): Flow<Any?>
+    suspend fun saveAddress(address: AddressEntity): Any?
 
 }

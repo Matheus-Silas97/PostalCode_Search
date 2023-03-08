@@ -2,6 +2,8 @@ package com.matheussilas97.common.entity
 
 data class AddressEntity(
 
+    val id: Long = 0L,
+
     val postalCode: String? = "",
 
     val street: String? = "",

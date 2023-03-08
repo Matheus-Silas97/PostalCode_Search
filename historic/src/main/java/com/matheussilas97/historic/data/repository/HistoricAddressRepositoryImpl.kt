@@ -14,6 +14,7 @@ class HistoricAddressRepositoryImpl(private val appDatabase: AppDatabase) :
     override suspend fun getAllAddress(): List<AddressEntity> = withContext(Dispatchers.IO) {
         return@withContext appDatabase.address().getAll().map {
             AddressEntity(
+                id = it.id,
                 postalCode = it.postalCode,
                 street = it.street,
                 complement = it.complement,
@@ -27,6 +28,7 @@ class HistoricAddressRepositoryImpl(private val appDatabase: AppDatabase) :
     override suspend fun deleteAddress(address: AddressEntity): Any = withContext(Dispatchers.IO) {
         return@withContext appDatabase.address().deleteTraining(
             Address(
+                id = address.id,
                 postalCode = address.postalCode ?: "",
                 street = address.street ?: "",
                 complement = address.complement ?: "",

@@ -8,10 +8,11 @@ import kotlinx.coroutines.flow.flow
 class HistoricAddressUseCaseImpl(private val addressRepository: HistoricAddressRepository) :
     HistoricAddressUseCase {
 
-    override fun getAllAddress(): Flow<List<AddressEntity>> =
-        flow { addressRepository.getAllAddress() }
+    override fun getAllAddress(): Flow<List<AddressEntity>> = flow {
+        emit(addressRepository.getAllAddress())
+    }
 
     override fun deleteAddress(address: AddressEntity): Flow<Any?> = flow {
-        addressRepository.deleteAddress(address)
+        emit(addressRepository.deleteAddress(address))
     }
 }

@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.Card
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
@@ -13,13 +14,14 @@ import com.matheussilas97.common.entity.AddressEntity
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun AddressCard(address: AddressEntity, delete: () -> Unit) {
+fun AddressCard(address: AddressEntity, deleteAddress: () -> Unit = {}) {
+
     Card(
         border = BorderStroke(1.dp, Color.Gray),
         modifier = Modifier
             .fillMaxWidth()
             .padding(all = 2.dp),
-        onClick = { delete.invoke() }
+        onClick = { deleteAddress.invoke() }
     ) {
         Column(
             modifier = Modifier
@@ -41,6 +43,7 @@ fun AddressCard(address: AddressEntity, delete: () -> Unit) {
 fun HistoricComponentPreview() {
     AddressCard(
         AddressEntity(
+            0,
             "00000-000",
             "Avenida Brasil",
             "Ao lado de cá",

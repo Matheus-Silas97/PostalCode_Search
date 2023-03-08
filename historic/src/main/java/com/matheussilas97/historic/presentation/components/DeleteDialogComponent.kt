@@ -8,30 +8,25 @@ import androidx.compose.ui.res.stringResource
 import com.matheussilas97.historic.R
 
 @Composable
-fun DeleteDialogComponent(delete: () -> Unit) {
-
-    var isOpen by remember {
-        mutableStateOf(true)
-    }
-
-    if (isOpen) {
+fun DeleteDialogComponent(delete: () -> Unit,   onCloseDialog: () -> Unit,) {
         AlertDialog(
-            onDismissRequest = { isOpen = false },
+            onDismissRequest =  onCloseDialog ,
             title = { Text(text = stringResource(R.string.delete_address_title)) },
             text = { Text(text = stringResource(R.string.delete_address_message)) },
             confirmButton = {
                 Button(
-                    onClick = { delete.invoke()
-                        isOpen = false},
+                    onClick = {
+                        delete()
+                        onCloseDialog()
+                              },
                 ) {
                     Text(text = stringResource(R.string.delete))
                 }
             },
             dismissButton = {
-                Button(onClick = { isOpen = false }) {
+                Button(onClick = { onCloseDialog() }) {
                     Text(text = stringResource(R.string.cancel))
 
                 }
             })
-    }
 }

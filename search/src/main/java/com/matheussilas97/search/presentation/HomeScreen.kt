@@ -15,10 +15,11 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.matheussilas97.common.entity.AddressEntity
 import com.matheussilas97.common.utils.RouteNavigation
-import com.matheussilas97.search.presentation.component.AddressCard
 import com.matheussilas97.uikit.R
 import com.matheussilas97.uikit.components.ActionButton
+import com.matheussilas97.uikit.components.AddressCard
 import com.matheussilas97.uikit.components.ErrorDialog
 import org.koin.androidx.compose.getViewModel
 
@@ -94,13 +95,13 @@ fun SearchAddressScreen(
 
                 if (!state.error.isNullOrEmpty()) {
                     ErrorDialog(throwable = Throwable(message = state.error)) {
-                        viewModel.interact(SearchAddressInteraction.CloseDialog)
+                        viewModel.interact(interaction = SearchAddressInteraction.CloseDialog)
                     }
                 }
 
                 Spacer(modifier = Modifier.height(height = 18.dp))
 
-                AddressCard(viewModel = viewModel)
+                AddressCard(address = state.addressEntity ?: AddressEntity())
             }
         })
 }

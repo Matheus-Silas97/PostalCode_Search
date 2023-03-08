@@ -6,5 +6,7 @@ data class HistoricAddressState(
     val addressEntity: List<AddressEntity>? = null,
     val deleteAddress: Boolean = false,
     val isLoading: Boolean = false,
-    val error: String? = null
+    val error: String? = null,
+    val showAddressDialog: Boolean = false,
+    val addressForDelete: AddressEntity? = null
 )

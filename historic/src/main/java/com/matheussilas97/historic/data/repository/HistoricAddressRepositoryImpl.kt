@@ -1,42 +1,23 @@
 package com.matheussilas97.historic.data.repository
 
-import com.matheussilas97.common.entity.AddressEntity
+import com.matheussilas97.common.data.mapper.toAddressObject
+import com.matheussilas97.common.domain.model.Address
 import com.matheussilas97.common.local.AppDatabase
-import com.matheussilas97.common.local.entity.Address
+import com.matheussilas97.historic.data.mapper.toAddressList
+import com.matheussilas97.historic.domain.repository.HistoricAddressRepository
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.withContext
 
 class HistoricAddressRepositoryImpl(private val appDatabase: AppDatabase) :
     HistoricAddressRepository {
 
-    override suspend fun getAllAddress(): List<AddressEntity> = withContext(Dispatchers.IO) {
-        return@withContext appDatabase.address().getAll().map {
-            AddressEntity(
-                id = it.id,
-                postalCode = it.postalCode,
-                street = it.street,
-                complement = it.complement,
-                neighborhood = it.neighborhood,
-                city = it.city,
-                state = it.state
-            )
-        }
+    override suspend fun getAllAddress(): List<Address> = withContext(Dispatchers.IO) {
+        return@withContext appDatabase.address().getAll().toAddressList()
     }
 
-    override suspend fun deleteAddress(address: AddressEntity): Any = withContext(Dispatchers.IO) {
+    override suspend fun deleteAddress(address: Address): Any = withContext(Dispatchers.IO) {
         return@withContext appDatabase.address().deleteTraining(
-            Address(
-                id = address.id,
-                postalCode = address.postalCode ?: "",
-                street = address.street ?: "",
-                complement = address.complement ?: "",
-                neighborhood = address.neighborhood ?: "",
-                city = address.city ?: "",
-                state = address.state ?: ""
-            )
+            address = address.toAddressObject()
         )
-
     }
 }

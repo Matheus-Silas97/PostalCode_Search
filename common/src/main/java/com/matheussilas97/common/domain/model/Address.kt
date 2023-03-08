@@ -1,6 +1,6 @@
-package com.matheussilas97.common.entity
+package com.matheussilas97.common.domain.model
 
-data class AddressEntity(
+data class Address(
 
     val id: Long = 0L,
 

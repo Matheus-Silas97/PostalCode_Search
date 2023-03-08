@@ -3,7 +3,7 @@ package com.matheussilas97.search.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.matheussilas97.common.domain.usecase.AddressLocalUseCase
-import com.matheussilas97.common.entity.AddressEntity
+import com.matheussilas97.common.domain.model.Address
 import com.matheussilas97.search.domain.usecase.AddressUseCase
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -49,7 +49,7 @@ class HomeViewModel(
         }
     }
 
-    private fun saveAddressInDataBase(address: AddressEntity?) {
+    private fun saveAddressInDataBase(address: Address?) {
         viewModelScope.launch {
             address?.let { addressEntity ->
                 addressLocalUseCase.saveAddress(address = addressEntity).catch { throwable ->

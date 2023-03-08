@@ -2,7 +2,7 @@ package com.matheussilas97.historic.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.matheussilas97.common.entity.AddressEntity
+import com.matheussilas97.common.domain.model.Address
 import com.matheussilas97.historic.domain.usecase.HistoricAddressUseCase
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -42,7 +42,6 @@ class HistoricViewModel(private val historicUseCase: HistoricAddressUseCase) : V
                             error = throwable.message,
                             isLoading = false,
                             addressEntity = null,
-                            deleteAddress = false,
                             addressForDelete = null
                         )
                     }
@@ -59,27 +58,25 @@ class HistoricViewModel(private val historicUseCase: HistoricAddressUseCase) : V
         }
     }
 
-    private fun deleteAddress(address: AddressEntity) {
+    private fun deleteAddress(address: Address) {
         viewModelScope.launch {
             closeDeleteDialog()
             historicUseCase.deleteAddress(address = address)
                 .onStart {
                     _state.update { it.copy(isLoading = true, error = null,
-                        showAddressDialog = false) }
+                        showDeleteAddressDialog = false) }
                 }.catch { throwable ->
                     _state.update {
                         it.copy(
                             error = throwable.message,
                             isLoading = false,
                             addressEntity = null,
-                            deleteAddress = false,
                             addressForDelete = null
                         )
                     }
                 }.collect {
                     _state.update {
                         it.copy(
-                            deleteAddress = true,
                             addressEntity = null,
                             isLoading = false,
                             error = null,
@@ -91,12 +88,12 @@ class HistoricViewModel(private val historicUseCase: HistoricAddressUseCase) : V
         }
     }
 
-    private fun showDeleteAddress(address: AddressEntity) {
-        _state.update { it.copy(addressForDelete = address, showAddressDialog = true) }
+    private fun showDeleteAddress(address: Address) {
+        _state.update { it.copy(addressForDelete = address, showDeleteAddressDialog = true) }
     }
 
     private fun closeDeleteDialog() {
-        _state.update { it.copy(addressForDelete = null, showAddressDialog = false) }
+        _state.update { it.copy(addressForDelete = null, showDeleteAddressDialog = false) }
     }
 
     private fun closeDialog() {

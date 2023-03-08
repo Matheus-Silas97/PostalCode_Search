@@ -13,8 +13,8 @@ import androidx.compose.ui.draw.scale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import com.matheussilas97.common.entity.AddressEntity
-import com.matheussilas97.historic.R
+import com.matheussilas97.common.domain.model.Address
+import com.matheussilas97.common.R
 import com.matheussilas97.historic.presentation.components.DeleteDialogComponent
 import com.matheussilas97.uikit.components.AddressCard
 import com.matheussilas97.uikit.components.ErrorDialog
@@ -50,12 +50,12 @@ fun HistoricScreen(
                 )
             }
 
-            if (state.showAddressDialog) {
+            if (state.showDeleteAddressDialog) {
                 DeleteDialogComponent(
                     delete = {
                         viewModel.interact(
                             HistoricAddressInteraction.DeleteAddress(
-                                state.addressForDelete ?: AddressEntity()
+                                state.addressForDelete ?: Address()
                             )
                         )
                     },

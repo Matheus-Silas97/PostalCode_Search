@@ -11,11 +11,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.matheussilas97.common.entity.AddressEntity
+import com.matheussilas97.common.R.*
+import com.matheussilas97.common.domain.model.Address
 import com.matheussilas97.common.utils.RouteNavigation
 import com.matheussilas97.uikit.R
 import com.matheussilas97.uikit.components.ActionButton
@@ -41,7 +43,7 @@ fun SearchAddressScreen(
             ) {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_history),
-                    contentDescription = "icon historic"
+                    contentDescription = stringResource(string.icon_historic)
                 )
             }
         }, content = {
@@ -54,7 +56,7 @@ fun SearchAddressScreen(
             ) {
                 Image(
                     painter = painterResource(id = R.drawable.ic_location),
-                    contentDescription = "location image",
+                    contentDescription = stringResource(string.location_image),
                     modifier = Modifier.size(150.dp)
                 )
 
@@ -63,7 +65,7 @@ fun SearchAddressScreen(
                 OutlinedTextField(
                     value = searchValueState,
                     onValueChange = { searchValueState = it },
-                    placeholder = { Text(text = "Digite um CEP") },
+                    placeholder = { Text(text = stringResource(string.enter_a_zip_code)) },
                     modifier = Modifier.fillMaxWidth(),
                     maxLines = 1,
                     keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number)
@@ -72,7 +74,7 @@ fun SearchAddressScreen(
                 Spacer(modifier = Modifier.height(height = 18.dp))
 
                 ActionButton(
-                    text = "Pesquisar CEP",
+                    text = stringResource(string.search_for_zip_code),
                     modifier = Modifier
                         .fillMaxWidth(),
                     click = {
@@ -101,7 +103,7 @@ fun SearchAddressScreen(
 
                 Spacer(modifier = Modifier.height(height = 18.dp))
 
-                AddressCard(address = state.addressEntity ?: AddressEntity())
+                AddressCard(address = state.addressEntity ?: Address())
             }
         })
 }

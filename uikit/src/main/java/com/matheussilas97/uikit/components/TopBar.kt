@@ -5,7 +5,9 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.matheussilas97.common.R
 
 @Composable
 fun TopBar(title: String = "", onBackPressed: () -> Unit) {
@@ -15,7 +17,7 @@ fun TopBar(title: String = "", onBackPressed: () -> Unit) {
         },
         navigationIcon = {
             IconButton(onClick = { onBackPressed() }) {
-                Icon(Icons.Filled.ArrowBack, "backIcon")
+                Icon(Icons.Filled.ArrowBack, stringResource(R.string.back_icon))
             }
         },
         backgroundColor = MaterialTheme.colors.primary,

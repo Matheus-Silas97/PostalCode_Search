@@ -4,18 +4,18 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
-import com.matheussilas97.common.local.entity.Address
+import com.matheussilas97.common.local.entity.AddressEntity
 
 @Dao
 interface AddressDao {
 
-    @Query("SELECT * FROM address")
-    fun getAll(): List<Address>
+    @Query("SELECT * FROM addressentity")
+    fun getAll(): List<AddressEntity>
 
     @Insert
-    fun insert(address: Address)
+    fun insert(address: AddressEntity)
 
     @Delete
-    fun deleteTraining(address: Address)
+    fun deleteTraining(address: AddressEntity)
 
 }

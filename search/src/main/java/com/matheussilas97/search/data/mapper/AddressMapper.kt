@@ -1,10 +1,10 @@
 package com.matheussilas97.search.data.mapper
 
-import com.matheussilas97.common.entity.AddressEntity
+import com.matheussilas97.common.domain.model.Address
 import com.matheussilas97.search.data.response.AddressResponse
 
-fun AddressResponse?.toAddressEntity(): AddressEntity? =
-    AddressEntity(
+fun AddressResponse?.toAddressEntity(): Address =
+    Address(
         postalCode = this?.postalCode ?: "",
         street = this?.street ?: "",
         complement = this?.complement ?: "",

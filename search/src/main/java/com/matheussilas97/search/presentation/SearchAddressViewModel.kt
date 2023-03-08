@@ -2,19 +2,19 @@ package com.matheussilas97.search.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.matheussilas97.common.domain.usecase.AddressLocalUseCase
 import com.matheussilas97.common.domain.model.Address
+import com.matheussilas97.common.domain.usecase.AddressLocalUseCase
 import com.matheussilas97.search.domain.usecase.AddressUseCase
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
-class HomeViewModel(
+class SearchAddressViewModel(
     private val addressUseCase: AddressUseCase,
     private val addressLocalUseCase: AddressLocalUseCase
 ) : ViewModel() {
 
-    private val _state = MutableStateFlow(AddressState(isLoading = false))
-    val state: StateFlow<AddressState> = _state
+    private val _state = MutableStateFlow(SearchAddressState(isLoading = false))
+    val state: StateFlow<SearchAddressState> = _state
 
     fun interact(interaction: SearchAddressInteraction) {
         when (interaction) {

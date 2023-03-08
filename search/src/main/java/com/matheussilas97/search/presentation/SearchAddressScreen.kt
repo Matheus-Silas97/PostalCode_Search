@@ -16,7 +16,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.matheussilas97.common.R.*
+import com.matheussilas97.common.R.string
 import com.matheussilas97.common.domain.model.Address
 import com.matheussilas97.common.utils.RouteNavigation
 import com.matheussilas97.uikit.R
@@ -28,7 +28,7 @@ import org.koin.androidx.compose.getViewModel
 @Composable
 fun SearchAddressScreen(
     navController: NavController? = null,
-    viewModel: HomeViewModel = getViewModel()
+    viewModel: SearchAddressViewModel = getViewModel()
 ) {
 
     val state by viewModel.state.collectAsState()
@@ -55,12 +55,10 @@ fun SearchAddressScreen(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Image(
-                    painter = painterResource(id = R.drawable.ic_location),
+                    painter = painterResource(id = R.drawable.logo),
                     contentDescription = stringResource(string.location_image),
-                    modifier = Modifier.size(150.dp)
+                    modifier = Modifier.size(250.dp)
                 )
-
-                Spacer(modifier = Modifier.height(height = 12.dp))
 
                 OutlinedTextField(
                     value = searchValueState,

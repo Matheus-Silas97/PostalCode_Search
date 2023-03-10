@@ -4,6 +4,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Card
 import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -17,6 +18,7 @@ fun AddressCard(address: Address, deleteAddress: () -> Unit = {}) {
 
     Card(
         border = BorderStroke(1.dp, Color.Gray),
+        backgroundColor = MaterialTheme.colors.background,
         modifier = Modifier
             .fillMaxWidth()
             .padding(all = 2.dp),

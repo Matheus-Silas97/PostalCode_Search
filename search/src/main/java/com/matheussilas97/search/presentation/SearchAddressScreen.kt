@@ -34,12 +34,13 @@ fun SearchAddressScreen(
     val state by viewModel.state.collectAsState()
     var searchValueState by remember { mutableStateOf("") }
 
-    Scaffold(modifier = Modifier.padding(all = 8.dp),
+    Scaffold(backgroundColor = MaterialTheme.colors.background,
         floatingActionButton = {
             FloatingActionButton(
                 onClick = { navController?.navigate(route = RouteNavigation.HISTORIC_SCREEN) },
-                backgroundColor = Color.Blue,
-                contentColor = Color.Black
+                backgroundColor = MaterialTheme.colors.primary,
+                contentColor = MaterialTheme.colors.secondary,
+                modifier = Modifier.padding(all = 8.dp)
             ) {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_history),
@@ -64,7 +65,9 @@ fun SearchAddressScreen(
                     value = searchValueState,
                     onValueChange = { searchValueState = it },
                     placeholder = { Text(text = stringResource(string.enter_a_zip_code)) },
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(color = MaterialTheme.colors.background),
                     maxLines = 1,
                     keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number)
                 )

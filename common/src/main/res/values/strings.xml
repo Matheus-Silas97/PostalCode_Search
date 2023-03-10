@@ -13,4 +13,5 @@
     <string name="delete_address_title">Apagar endereço?</string>
     <string name="delete">Apagar</string>
     <string name="cancel">Cancelar</string>
+    <string name="cep_value">CEP: %s</string>
 </resources>

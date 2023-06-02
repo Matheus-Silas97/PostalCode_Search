@@ -1,0 +1,24 @@
+name: Create Semantic Release
+
+on:
+  push:
+    branches:
+      - master
+jobs:
+  releaseProject:
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+    name: Semantic Release
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "18.x"
+      - run: npm install semantic-release @semantic-release/git @semantic-release/github
+      - run: npm ci
+      - run: npx semantic-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

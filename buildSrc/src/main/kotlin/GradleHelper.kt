@@ -16,3 +16,5 @@ fun DependencyHandler.project(module: String) =
 
 fun DependencyHandler.api(module: String) =
     add("api", project(path = module))
+fun DependencyHandler.apiDependency(dependency: String) =
+    add("api", dependency)

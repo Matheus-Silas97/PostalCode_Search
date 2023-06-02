@@ -5,10 +5,10 @@ import com.matheussilas97.search.data.response.AddressResponse
 
 fun AddressResponse?.toAddressEntity(): Address =
     Address(
-        postalCode = this?.postalCode ?: "",
-        street = this?.street ?: "",
-        complement = this?.complement ?: "",
-        neighborhood = this?.neighborhood ?: "",
-        city = this?.city ?: "",
-        state = this?.state ?: ""
+        postalCode = this?.postalCode.orEmpty(),
+        street = this?.street.orEmpty(),
+        complement = this?.complement.orEmpty(),
+        neighborhood = this?.neighborhood.orEmpty(),
+        city = this?.city.orEmpty(),
+        state = this?.state.orEmpty()
     )

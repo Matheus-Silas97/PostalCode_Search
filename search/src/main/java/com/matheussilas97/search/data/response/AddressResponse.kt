@@ -1,25 +1,28 @@
 package com.matheussilas97.search.data.response
 
 import com.google.gson.annotations.SerializedName
-
+import io.ktor.resources.Resource
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+@Serializable
 data class AddressResponse(
 
-    @SerializedName("cep")
+    @SerialName("cep")
     val postalCode: String,
 
-    @SerializedName("logradouro")
+    @SerialName("logradouro")
     val street: String,
 
-    @SerializedName("complemento")
+    @SerialName("complemento")
     val complement: String,
 
-    @SerializedName("bairro")
+    @SerialName("bairro")
     val neighborhood: String,
 
-    @SerializedName("localidade")
+    @SerialName("localidade")
     val city: String,
 
-    @SerializedName("uf")
+    @SerialName("uf")
     val state: String
 
 )
